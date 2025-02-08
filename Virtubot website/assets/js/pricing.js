@@ -3,18 +3,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const toggleBtns = document.querySelectorAll('.toggle-btn');
     const pricingSections = document.querySelectorAll('.pricing-section');
 
-    // Function to format prices in AED
+    // Function to format prices in AED without showing "$"
     function formatPrices() {
         const prices = document.querySelectorAll(".amount");
 
         prices.forEach(price => {
             let value = parseFloat(price.textContent.replace(/,/g, ""));
             if (!isNaN(value)) {
-                price.textContent = new Intl.NumberFormat("en-AE", {
-                    style: "currency",
-                    currency: "AED",
+                // Format number with commas but keep AED as text
+                price.innerHTML = `AED ${value.toLocaleString("en-AE", {
                     minimumFractionDigits: 2,
-                }).format(value);
+                    maximumFractionDigits: 2
+                })}`;
             }
         });
     }
